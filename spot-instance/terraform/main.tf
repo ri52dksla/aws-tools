@@ -40,6 +40,18 @@ resource "aws_security_group_rule" "allow_ssh_access" {
   type              = "ingress"
 }
 
+resource "aws_security_group_rule" "allow_accesss_to_the_internet" {
+  description       = "allow access to the Internet"
+  protocol          = "-1"
+  security_group_id = aws_security_group.this.id
+  cidr_blocks = [
+    "0.0.0.0/0"
+    ]
+  from_port = 0
+  to_port   = 0
+  type      = "egress"
+}
+
 resource "aws_launch_template" "this" {
 
   name = var.name
